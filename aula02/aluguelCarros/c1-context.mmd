@@ -1,0 +1,9 @@
+flowchart LR
+    Cliente(["pesquisa preços e aluga carros"])
+    Funcionario(["cadastra carros e determina valores"])
+    Sistema(["sistema do aluguel de carros"])
+    Telefone(["serviço de comunicação"])
+
+    Usuario-->|aluga e presquisa preço|Sistema
+    Funcionario-->|gerencia valores e o tempo|Sistema
+    Sistema-->|entra em contato|Telefone

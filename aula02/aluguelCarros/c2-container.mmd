@@ -1,0 +1,19 @@
+flowchart TD
+    Cliente(["Cliente"])
+    Funcionario(["Funcionário"])
+
+    subgraph SB["Sistema do aluguel de carros"]
+    App(["App do Cliente"])
+    AppFunc(["App do Funcionário"])
+    Servidor(["API"])
+    BD(["BD"])
+    end
+
+    Telefone(["Serviço de comunicação"])
+
+    Cliente-->|pesquisa e aluga|App
+    Funcionario-->|gerencia preços e tempo|AppFunc
+    App-->|chama api|Servidor
+    AppFunc-->|chama api|Servidor
+    Servidor-->|lê e grava dados|BD
+    Servidor --->|monitora e notifica o prazo| Telefone

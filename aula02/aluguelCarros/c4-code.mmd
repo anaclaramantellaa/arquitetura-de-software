@@ -1,0 +1,21 @@
+classDiagram
+    class Reservas{
+        -placa
+        -carro
+        -cliente
+        -dataInicio
+        -dataFinal
+        -tempoReservado
+        + reserva(cliente, carro, dataInicio, dataFinal, tempoReservado)
+        + renovacao(novaReserva)
+        + dataFinal()
+        + atrasoPagamento(carro, cliente, dataFinal)
+    }
+    class Notificacao{
+        + notificar(reserva)
+    }
+    class Comunicacao{
+        + notificar(reserva)
+    }
+    Reservas --> Notificacao : usa
+    Comunicacao ..|> Notificacao : implementa

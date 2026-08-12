@@ -1,0 +1,14 @@
+flowchart TD
+    subgraph SA ["API"]
+    Carros(["Carros<br>carros disponíveis"])
+    Reserva(["Reserva<br>reservas em andamento"])
+    Notificacao(["Notificações<br>notificar clientes"])
+    end
+
+    Telefone["dispara reservas"]
+
+    Reserva-->|consulta|Carros
+    Reserva-->|aciona|Notificacao
+    Notificacao-->|chama|Telefone
+
+
