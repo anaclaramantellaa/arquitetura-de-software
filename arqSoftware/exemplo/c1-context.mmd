@@ -1,9 +1,0 @@
-flowchart LR
-User(["Usuário<br>pesquisa e empresta livros"])
-Librarian(["Bibliotecário<br>cadastra livros gerencia empréstimos"])
-System["Sistema da biblioteca"]
-Email["Serviço de email"]
-
-User -->|Pesquisa e empresta livros| System
-Librarian -->|Cadastra livros e gerencia empréstimos| System
-System -->|Envia notificação ao usuário| Email
