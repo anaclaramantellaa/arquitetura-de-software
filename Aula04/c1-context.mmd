@@ -1,0 +1,11 @@
+    title Sistema de Vendas - Diagrama de Contexto
+
+    Person(vendedor, "Vendedor", "Registrar pedidos")
+    Person(admin, "Administrador", "Cadastrar e excluir produtos")
+    Person(estoque, "Time de Estoque", "Controlar o estoque")
+
+    System(sistema, "Sistema de Vendas", "Sistema para vendas, produtos e estoque")
+
+    Rel(vendedor, sistema, "Registra pedidos")
+    Rel(admin, sistema, "Cadastra e remove produtos")
+    Rel(estoque, sistema, "Controla entradas e saídas")
