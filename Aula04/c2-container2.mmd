@@ -1,0 +1,30 @@
+ Flowchart LR
+    vend["Vendedor"]
+    adm["Administrador"]
+    est["Time de Estoque"]
+
+    subgraph apre["Apresentação]
+        int["Interface do Sistema]
+    entrada
+
+    subgraph dom["Domínio]
+        gestaoPed["Gestão de Pedidos"]
+        gestaoPro["Gestão de Produtos"]
+        gestaoEst["Gestão de Estoque"]
+    end
+
+    subgraph dados["Dados"]
+        BD[("Banco de dados")]
+    end
+
+    vend --> int
+    adm --> int
+    est --> int
+
+    int --> gestaoPed
+    int --> gestaoPro
+    int --> gestaoEst
+
+    gestaoEst --> BD
+    gestaoPro --> BD
+    gestaoPed --> BD

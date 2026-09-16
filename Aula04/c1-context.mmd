@@ -1,0 +1,10 @@
+ Flowchart LR
+    vend["Vendedor"]
+    adm["Administrador"]
+    est["Time de Estoque"]
+
+    sist["Sistema de Vendas"]
+
+    vend -->|"Registrar os pedidos"| sist
+    adm -->|"Cadastrar e remover produtos"| sist
+    est -->|"Controle de entrada e saída de produtos"| sist
