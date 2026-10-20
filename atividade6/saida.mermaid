@@ -1,0 +1,37 @@
+
+sequenceDiagram
+    actor F as Funcionário
+    participant V as Tela de Estoque
+    participant C as EstoqueController
+    participant S as EstoqueService
+    participant P as ProdutoRepository
+    participant E as EstoqueRepository
+
+    F->>V: Solicita saída de estoque
+    F->>V: Informa produto e quantidade
+    V->>C: registrarSaida(produtoId, quantidade)
+    C->>S: registrarSaida(produtoId, quantidade)
+    S->>P: buscarPorId(produtoId)
+    P-->>S: Dados do produto
+
+    alt Produto não encontrado
+        S-->>C: Erro: produto inexistente
+        C-->>V: Exibir erro
+    else Produto descontinuado
+        S-->>C: Erro: produto descontinuado
+        C-->>V: Exibir erro
+    else Quantidade inválida ou estoque insuficiente
+        S-->>C: Erro: saída não permitida
+        C-->>V: Exibir erro
+    else Saída válida
+        S->>E: Subtrair quantidade do estoque
+        E-->>S: Estoque atualizado
+        alt Estoque restante igual a zero
+            S->>P: Atualizar status para INDISPONÍVEL
+            P-->>S: Status atualizado
+        else Estoque restante maior que zero
+            Note over S,P: Produto permanece DISPONÍVEL
+        end
+        S-->>C: Saída realizada
+        C-->>V: Exibir sucesso
+    end

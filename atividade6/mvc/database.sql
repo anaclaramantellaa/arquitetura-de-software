@@ -1,0 +1,34 @@
+CREATE DATABASE IF NOT EXISTS aula6_estoque CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE aula6_estoque;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario VARCHAR(80) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  perfil ENUM('ADM','FUNCIONARIO') NOT NULL DEFAULT 'FUNCIONARIO'
+);
+
+CREATE TABLE IF NOT EXISTS produtos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  descricao TEXT NULL,
+  quantidade INT NOT NULL DEFAULT 0,
+  status ENUM('DISPONIVEL','INDISPONIVEL','DESCONTINUADO') NOT NULL DEFAULT 'INDISPONIVEL',
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS movimentacoes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  produto_id INT NOT NULL,
+  usuario_id INT NOT NULL,
+  tipo ENUM('ENTRADA','SAIDA') NOT NULL,
+  quantidade INT NOT NULL,
+  observacao VARCHAR(255) NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_mov_produto FOREIGN KEY (produto_id) REFERENCES produtos(id),
+  CONSTRAINT fk_mov_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+-- Senha inicial: admin123
+INSERT IGNORE INTO usuarios (usuario, senha, perfil)
+VALUES ('admin', '$2y$12$m5Dq9iHwSlACOJ9Qc.zzl.GL8tpifOPYHjetlB780apccl4OQGRQm', 'ADM');

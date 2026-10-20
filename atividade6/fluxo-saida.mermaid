@@ -1,0 +1,29 @@
+
+flowchart TD
+    A([Início]) --> B[Informar produto e quantidade]
+    B --> C{Produto existe?}
+
+    C -- Não --> D[Exibir erro: produto não encontrado]
+    C -- Sim --> E{Produto está descontinuado?}
+
+    E -- Sim --> F[Exibir erro: produto descontinuado]
+    E -- Não --> G{Quantidade é maior que zero?}
+
+    G -- Não --> H[Exibir erro: quantidade inválida]
+    G -- Sim --> I{Estoque suficiente?}
+
+    I -- Não --> J[Exibir erro: estoque insuficiente]
+    I -- Sim --> K[Registrar saída do estoque]
+
+    K --> L{Estoque restante é zero?}
+    L -- Sim --> M[Alterar status para INDISPONÍVEL]
+    L -- Não --> N[Manter status DISPONÍVEL]
+
+    M --> O[Confirmar saída]
+    N --> O
+    O --> P([Fim])
+
+    D --> P
+    F --> P
+    H --> P
+    J --> P

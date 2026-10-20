@@ -1,0 +1,34 @@
+
+sequenceDiagram
+    actor ADM as Administrador
+    actor Funcionario as Funcionário
+    participant V as Tela de Estoque
+    participant C as EstoqueController
+    participant S as EstoqueService
+    participant P as ProdutoRepository
+    participant E as EstoqueRepository
+
+    ADM->>V: Solicita entrada de estoque
+    Funcionario->>V: Informa produto e quantidade
+    V->>C: registrarEntrada(produtoId, quantidade)
+    C->>S: registrarEntrada(produtoId, quantidade)
+    S->>P: buscarPorId(produtoId)
+    P-->>S: Dados do produto
+
+    alt Produto não encontrado
+        S-->>C: Erro: produto inexistente
+        C-->>V: Exibir mensagem de erro
+    else Produto descontinuado
+        S-->>C: Erro: produto descontinuado
+        C-->>V: Exibir mensagem de erro
+    else Quantidade inválida
+        S-->>C: Erro: quantidade inválida
+        C-->>V: Exibir mensagem de erro
+    else Entrada válida
+        S->>E: Adicionar quantidade ao estoque
+        E-->>S: Estoque atualizado
+        S->>P: Atualizar status para DISPONÍVEL
+        P-->>S: Status atualizado
+        S-->>C: Entrada realizada
+        C-->>V: Exibir sucesso
+    end
