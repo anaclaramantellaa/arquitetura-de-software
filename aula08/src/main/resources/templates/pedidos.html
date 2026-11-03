@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Vendas</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    .ok { color: #1a7f37; } .erro { color: #b42318; }
+  </style>
+</head>
+<body>
+  <h1>Vendas</h1>
+
+  <p class="ok" th:if="${sucesso}" th:text="${sucesso}"></p>
+  <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+  <form method="post" th:action="@{/pedidos}">
+    <input name="cliente" placeholder="Cliente" required>
+    <input name="valor" type="number" step="0.01" min="0.01" placeholder="Valor" required>
+    <button type="submit">Criar pedido</button>
+  </form>
+
+  <h2>Pedidos</h2>
+  <table>
+    <tr><th>ID</th><th>Cliente</th><th>Valor</th><th>Status</th><th>Fatura</th><th></th></tr>
+    <tr th:each="p : ${pedidos}">
+      <td th:text="${p.id}"></td>
+      <td th:text="${p.cliente}"></td>
+      <td th:text="${p.valor}"></td>
+      <td th:text="${p.status}"></td>
+      <td th:text="${p.faturaId}"></td>
+      <td>
+        <form method="post" th:action="@{/pedidos/{id}/fechar(id=${p.id})}" th:if="${p.status.name() == 'ABERTO'}">
+          <button type="submit">Fechar pedido</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
